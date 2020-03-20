@@ -1,5 +1,6 @@
 package com.binio.productorder.service;
 
+import java.time.ZonedDateTime;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -7,10 +8,12 @@ import java.util.stream.Collectors;
 import com.binio.productorder.model.Product;
 import com.binio.productorder.model.ProductApi;
 import com.binio.productorder.repository.ProductRepository;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
+@AllArgsConstructor
 public class ProductServiceImpl implements ProductService{
 
     @Autowired
@@ -91,6 +94,17 @@ public class ProductServiceImpl implements ProductService{
             }
 
         }
+    }
+
+    public Optional<ProductApi> createProduct(ProductApi productApi) {
+        Product product = Product.builder()
+                .product_created_date(ZonedDateTime.now())
+                .product_name(productApi.getProduct_name())
+                .product_price(productApi.getProduct_price())
+                .productDeleted(false)
+                .productSku(productApi.getProduct_sku())
+                .build();
+        return convertProduct(productRepository.save(product));
     }
 
     private Optional<ProductApi> convertProduct(final Product product){

@@ -76,4 +76,17 @@ public class ProductController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
+
+    @PostMapping(path="/create")
+    public @ResponseBody
+    ResponseEntity<ProductApi> createProduct(@RequestBody ProductApi productApi) {
+//        if(productService.getProductBySku(sku).equals(Optional.empty())){
+//            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+//        } else {
+//            return ResponseEntity.of(productService.getProductBySku(sku));
+//        }
+        return ResponseEntity.of(productService.createProduct(productApi));
+    }
+
+
 }
