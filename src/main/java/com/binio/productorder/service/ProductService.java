@@ -13,5 +13,5 @@ public interface ProductService {
     Optional<ProductApi> getProductBySkuAndProductDeleted(String sku, Boolean deleted);
     Optional<ProductApi> updateProduct(ProductApi productApi);
     Boolean deleteProduct(Long id);
-    Optional<ProductApi> createProduct(ProductApi productApi);
+    Optional<ProductApi> createProduct(ProductApi productApi) throws ProductApiException;
 }

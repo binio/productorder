@@ -14,6 +14,7 @@ import java.util.Optional;
 import com.binio.productorder.model.Product;
 import com.binio.productorder.model.ProductApi;
 import com.binio.productorder.repository.ProductRepository;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -101,15 +102,24 @@ class ProductServiceImplTest {
 
     @Test
     void deleteProduct() {
+        //@TODO
     }
 
     @Test
-    void createProduct() {
+    void createProduct() throws ProductApiException {
         when(productRepository.save(any())).thenReturn(getProduct_a("111111", 20.00, "Product A Updated", 1L));
         ProductApi productApi = productService.createProduct(getUpdatedProductApi()).get();
         assertEquals("Product A Updated", productApi.getProduct_name());
         assertEquals("111111", productApi.getProduct_sku());
         assertEquals(new BigDecimal(20.00), productApi.getProduct_price());
+
+    }
+
+    @Test
+    void createProduct_expectExceptionWhenProductIsNull() {
+        Assertions.assertThrows(ProductApiException.class, () -> {
+            productService.createProduct(null).get();
+        });
 
     }
 }

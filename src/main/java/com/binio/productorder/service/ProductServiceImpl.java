@@ -1,5 +1,7 @@
 package com.binio.productorder.service;
 
+import static java.util.Optional.empty;
+
 import java.time.ZonedDateTime;
 import java.util.List;
 import java.util.Optional;
@@ -35,8 +37,8 @@ public class ProductServiceImpl implements ProductService{
     public Optional<ProductApi> getProductById(final Long id) {
         Optional<Product> product = productRepository.findById(id);
 
-        if(product.equals(Optional.empty())){
-            return Optional.empty();
+        if(product.equals(empty())){
+            return empty();
         } else {
             return convertProduct(product.get());
         }
@@ -46,8 +48,8 @@ public class ProductServiceImpl implements ProductService{
     public Optional<ProductApi> getProductBySku(final String sku) {
         Optional<Product> product = productRepository.findByProductSku(sku);
 
-        if(product.equals(Optional.empty())){
-            return Optional.empty();
+        if(product.equals(empty())){
+            return empty();
         } else {
             return convertProduct(product.get());
         }
@@ -57,8 +59,8 @@ public class ProductServiceImpl implements ProductService{
     public Optional<ProductApi> getProductBySkuAndProductDeleted(final String sku, final Boolean deleted) {
         Optional<Product> product = productRepository.findByProductSkuAndProductDeleted(sku, deleted);
 
-        if(product.equals(Optional.empty())){
-            return Optional.empty();
+        if(product.equals(empty())){
+            return empty();
         } else {
             return convertProduct(product.get());
         }
@@ -67,8 +69,8 @@ public class ProductServiceImpl implements ProductService{
 
     public Optional<ProductApi> updateProduct(ProductApi productApi) {
         Optional<Product> product = productRepository.findById(productApi.getProduct_id());
-        if(product.equals(Optional.empty())){
-            return Optional.empty();
+        if(product.equals(empty())){
+            return empty();
         } else {
             Product p = product.get();
             p.setProduct_created_date(productApi.getProduct_created_date());
@@ -82,7 +84,7 @@ public class ProductServiceImpl implements ProductService{
 
     public Boolean deleteProduct(Long id) {
         Optional<Product> product = productRepository.findById(id);
-        if(product.equals(Optional.empty())){
+        if(product.equals(empty())){
             return false;
         } else {
             Product p = product.get();
@@ -96,7 +98,10 @@ public class ProductServiceImpl implements ProductService{
         }
     }
 
-    public Optional<ProductApi> createProduct(ProductApi productApi) {
+    public Optional<ProductApi> createProduct(ProductApi productApi) throws ProductApiException {
+        if(productApi == null){
+            throw new ProductApiException();
+        }
         Product product = Product.builder()
                 .product_created_date(ZonedDateTime.now())
                 .product_name(productApi.getProduct_name())
