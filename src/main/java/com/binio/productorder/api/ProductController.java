@@ -71,7 +71,7 @@ public class ProductController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         } else {
 
-                return ResponseEntity.of(productService.getProductBySku(sku));
+                return ResponseEntity.of(productService.getProductBySkuAndProductDeleted(sku, deleted));
         }
     }
 

@@ -39,12 +39,12 @@ class ProductServiceImplTest {
 
     private List<Product> getProducts() {
         return Arrays.asList(
-                getProduct_a("111111", 10.99, "Product A", 1L),
-                getProduct_a("222222", 20.99, "Product B", 2L)
+                getTestProduct("111111", 10.99, "Product A", 1L),
+                getTestProduct("222222", 20.99, "Product B", 2L)
         );
     }
 
-    private Product getProduct_a(final String s, final double v, final String s2, final long l) {
+    private Product getTestProduct(final String s, final double v, final String s2, final long l) {
         return Product.builder()
                 .productSku(s)
                 .product_price(new BigDecimal(v))
@@ -57,7 +57,7 @@ class ProductServiceImplTest {
 
     @Test
     void getProductById() {
-        when(productRepository.findById(any())).thenReturn(Optional.of(getProduct_a("111111", 10.99, "Product A", 1L)));
+        when(productRepository.findById(any())).thenReturn(Optional.of(getTestProduct("111111", 10.99, "Product A", 1L)));
         ProductApi productApi = productService.getProductById(1L).get();
         assertEquals("Product A", productApi.getProduct_name());
         assertEquals("111111", productApi.getProduct_sku());
@@ -66,7 +66,7 @@ class ProductServiceImplTest {
 
     @Test
     void getProductBySku() {
-        when(productRepository.findByProductSku(any())).thenReturn(Optional.of(getProduct_a("111111", 10.99, "Product A", 1L)));
+        when(productRepository.findByProductSku(any())).thenReturn(Optional.of(getTestProduct("111111", 10.99, "Product A", 1L)));
         ProductApi productApi = productService.getProductBySku("111111").get();
         assertEquals("Product A", productApi.getProduct_name());
         assertEquals("111111", productApi.getProduct_sku());
@@ -75,7 +75,7 @@ class ProductServiceImplTest {
 
     @Test
     void getProductBySkuAndProductDeleted() {
-        when(productRepository.findByProductSkuAndProductDeleted(any(), any())).thenReturn(Optional.of(getProduct_a("111111", 10.99, "Product A", 1L)));
+        when(productRepository.findByProductSkuAndProductDeleted(any(), any())).thenReturn(Optional.of(getTestProduct("111111", 10.99, "Product A", 1L)));
         ProductApi productApi = productService.getProductBySkuAndProductDeleted("111111", false).get();
         assertEquals("Product A", productApi.getProduct_name());
         assertEquals("111111", productApi.getProduct_sku());
@@ -84,8 +84,8 @@ class ProductServiceImplTest {
 
     @Test
     void updateProduct() {
-        when(productRepository.findById(any())).thenReturn(Optional.of(getProduct_a("111111", 10.99, "Product A", 1L)));
-        when(productRepository.save(any())).thenReturn(getProduct_a("111111", 20.00, "Product A Updated", 1L));
+        when(productRepository.findById(any())).thenReturn(Optional.of(getTestProduct("111111", 10.99, "Product A", 1L)));
+        when(productRepository.save(any())).thenReturn(getTestProduct("111111", 20.00, "Product A Updated", 1L));
         ProductApi productApi = productService.updateProduct(getUpdatedProductApi()).get();
         assertEquals("Product A Updated", productApi.getProduct_name());
         assertEquals("111111", productApi.getProduct_sku());
@@ -107,7 +107,7 @@ class ProductServiceImplTest {
 
     @Test
     void createProduct() throws ProductApiException {
-        when(productRepository.save(any())).thenReturn(getProduct_a("111111", 20.00, "Product A Updated", 1L));
+        when(productRepository.save(any())).thenReturn(getTestProduct("111111", 20.00, "Product A Updated", 1L));
         ProductApi productApi = productService.createProduct(getUpdatedProductApi()).get();
         assertEquals("Product A Updated", productApi.getProduct_name());
         assertEquals("111111", productApi.getProduct_sku());
