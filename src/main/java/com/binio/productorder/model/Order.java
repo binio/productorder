@@ -1,5 +1,6 @@
 package com.binio.productorder.model;
 
+import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -40,5 +41,9 @@ public class Order {
             name = "order_product",
             joinColumns = @JoinColumn(name = "order_id"),
             inverseJoinColumns = @JoinColumn(name = "product_id"))
-    private Set<Product> products;
+    private Set<Product> products = new HashSet<>();
+
+    public void addProduct(Product product) {
+        products.add(product);
+    }
 }
