@@ -2,12 +2,14 @@ package com.binio.productorder.model;
 
 import java.math.BigDecimal;
 import java.time.ZonedDateTime;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -42,4 +44,7 @@ public class Product {
 
     @Column(name = "product_deleted")
     private Boolean productDeleted;
+
+    @ManyToMany(mappedBy = "products")
+    private Set<Order> orders;
 }

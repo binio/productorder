@@ -1,4 +1,4 @@
 package com.binio.productorder.service;
 
-public class ProductApiException extends Throwable {
+public class ProductApiException extends Exception {
 }
