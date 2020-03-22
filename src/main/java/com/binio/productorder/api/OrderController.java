@@ -1,5 +1,7 @@
 package com.binio.productorder.api;
 
+import java.util.Optional;
+
 import com.binio.productorder.model.OrderAddProductApi;
 import com.binio.productorder.model.OrderApi;
 import com.binio.productorder.model.OrderCreateApi;
@@ -13,6 +15,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -50,5 +54,15 @@ public class OrderController {
                 orderService.addProduct(
                         orderAddProductApi.getProduct_id(),orderAddProductApi.getOrder_id()
                 ));
+    }
+
+    @ApiOperation(value = "Shows order content", response = OrderApi.class)
+    @GetMapping(path="/id/{id}")
+    public ResponseEntity<OrderApi> viewOrder(@PathVariable("id") Long id) {
+        if(orderService.getOrderSummary(id).equals(Optional.empty())){
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        } else {
+            return ResponseEntity.of(orderService.getOrderSummary(id));
+        }
     }
 }
