@@ -1,13 +1,14 @@
 package com.binio.productorder.service;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
 import com.binio.productorder.model.Order;
 import com.binio.productorder.model.OrderApi;
+import com.binio.productorder.model.OrderCreateApi;
 import com.binio.productorder.model.Product;
 import com.binio.productorder.repository.OrderRepository;
 import com.binio.productorder.repository.ProductRepository;
@@ -41,25 +42,38 @@ public class OrderServiceImpl implements OrderService{
     }
 
     @Override
-    public Optional<OrderApi> addOrder(final Order order) throws OrderApiException {
-        return Optional.empty();
+    public Optional<OrderApi> addOrder(final OrderCreateApi orderCreateApi) throws OrderApiException {
+        if(orderCreateApi == null){
+            throw new OrderApiException();
+        } else {
+            Order order = Order.builder()
+                    .order_email(orderCreateApi.getOrder_email())
+                    .products(new HashSet<>())
+                    .build();
+            return Optional.of(convert(orderRepository.save(order)));
+        }
+
     }
 
     @Override
-    public Optional<OrderApi> getOrderSummary(final Order order) {
-        return Optional.empty();
+    public Optional<OrderApi> getOrderSummary(final Long orderId) {
+        if(orderRepository.existsById(orderId)) {
+            return Optional.of(convert((orderRepository.findById(orderId).get())));
+        } else {
+            return Optional.empty();
+        }
     }
 
     private OrderApi convert(Order order) {
         List<String> productList = order.getProducts().stream().map(
                 p -> p.getProduct_name()).collect(Collectors.toList());
 
-        OrderApi.builder()
+        return OrderApi.builder()
                 .order_email(order.getOrder_email())
                 .order_id(order.getOrder_id())
                 .order_total(getTotal(order))
-                .products(productList).build();
-        return null;
+                .products(productList)
+                .build();
     }
 
     private BigDecimal getTotal(Order order) {
