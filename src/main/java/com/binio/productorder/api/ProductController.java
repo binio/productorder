@@ -30,7 +30,7 @@ public class ProductController {
     private ProductService productService;
 
     @ApiOperation(value = "View a list of ProductApi which represent database entities Product", response = ProductApi.class)
-    @GetMapping(path="/all")
+    @GetMapping(path="/")
     public @ResponseBody
     List<ProductApi> getAllProducts() {
 
@@ -39,7 +39,7 @@ public class ProductController {
 
 
     @ApiOperation(value = "View a ProductApi which represent database entity Product", response = ProductApi.class)
-    @GetMapping(path="/id/{id}")
+    @GetMapping(path="/{id}")
     public @ResponseBody
     ResponseEntity<ProductApi> getProduct(@PathVariable("id") Long id) {
         if(productService.getProductById(id).equals(Optional.empty())){
@@ -82,7 +82,7 @@ public class ProductController {
     }
 
     @ApiOperation(value = "Deletes Product from the database", response = Boolean.class)
-    @DeleteMapping(path="/delete/{id}")
+    @DeleteMapping(path="/{id}")
     ResponseEntity<Boolean> deleteProduct(@PathVariable Long id) {
         if(productService.deleteProduct(id)){
             return new ResponseEntity<>(HttpStatus.OK);
@@ -92,7 +92,7 @@ public class ProductController {
     }
 
     @ApiOperation(value = "Creates Product in the database", response = ProductApi.class)
-    @PostMapping(path="/create")
+    @PostMapping(path="/")
     public @ResponseBody
     ResponseEntity<ProductApi> createProduct(
             @ApiParam(value = "ProductApi", required = true)
