@@ -61,7 +61,7 @@ class ProductControllerTest {
     void getAllProducts() throws Exception{
         when(productService.getAllProducts()).thenReturn(products);
         mockMvc.perform(MockMvcRequestBuilders
-                .get("/product/all")).andDo(print())
+                .get("/product/")).andDo(print())
                 .andExpect(MockMvcResultMatchers.status().is(200));
     }
 
@@ -69,7 +69,7 @@ class ProductControllerTest {
     void getProduct() throws Exception {
         when(productService.getProductById(any())).thenReturn(Optional.of(getTestProduct()));
         mockMvc.perform(MockMvcRequestBuilders
-                .get("/product/id/1")).andDo(print())
+                .get("/product/1")).andDo(print())
                 .andExpect(MockMvcResultMatchers.status().is(200))
                 .andExpect(jsonPath("$.product_name").value("Product A"))
                 .andExpect(jsonPath("$.product_price").value(22.00))
@@ -105,7 +105,7 @@ class ProductControllerTest {
     void deleteProduct() throws Exception{
         when(productService.deleteProduct(1L)).thenReturn(true);
         mockMvc.perform(MockMvcRequestBuilders
-                .delete("/product/delete/1")).andDo(print())
+                .delete("/product/1")).andDo(print())
                 .andExpect(MockMvcResultMatchers.status().is(200));
     }
 }
