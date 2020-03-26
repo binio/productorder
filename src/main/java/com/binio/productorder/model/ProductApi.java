@@ -18,7 +18,7 @@ public class ProductApi {
 
     Long product_id;
     String product_sku;
-    BigDecimal product_price;
+    double product_price;
     String product_name;
     ZonedDateTime product_created_date;
 }

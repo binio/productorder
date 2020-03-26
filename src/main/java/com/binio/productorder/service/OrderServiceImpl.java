@@ -76,9 +76,9 @@ public class OrderServiceImpl implements OrderService{
                 .build();
     }
 
-    private BigDecimal getTotal(Order order) {
+    private double getTotal(Order order) {
         return order.getProducts().stream()
                 .map( p -> p.getProduct_price())
-                .reduce(new BigDecimal(0), (a, b) -> a.add(b));
+                .reduce(0.00, (a, b) -> a + b);
     }
 }

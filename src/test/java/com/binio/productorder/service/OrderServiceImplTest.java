@@ -46,7 +46,7 @@ class OrderServiceImplTest {
 
         OrderApi order = orderService.addProduct(5L,1L).get();
         assertEquals(5, order.getProducts().size());
-        assertEquals("51.25", order.getOrder_total().toString());
+        assertEquals(51.25, order.getOrder_total());
 
     }
 
@@ -57,7 +57,7 @@ class OrderServiceImplTest {
 
         OrderApi order = orderService.getOrderSummary(1L).get();
         assertEquals(4, order.getProducts().size());
-        assertEquals("41.00", order.getOrder_total().toString());
+        assertEquals(41.00, order.getOrder_total());
     }
 
     @Test
@@ -86,7 +86,7 @@ class OrderServiceImplTest {
     }
 
     private Product productToBeAdded() {
-        return getTestProduct("test product 5",5L, new BigDecimal(10.25));
+        return getTestProduct("test product 5",5L, 10.25);
     }
 
     private Order updatedOrder() {
@@ -105,15 +105,15 @@ class OrderServiceImplTest {
 
     private Set<Product> getTestProducts() {
         Set<Product> products = new HashSet();
-        products.add(getTestProduct("test product 1",1L, new BigDecimal(10.25)));
-        products.add(getTestProduct("test product 2",2L, new BigDecimal(10.25)));
-        products.add(getTestProduct("test product 3",3L, new BigDecimal(10.25)));
-        products.add(getTestProduct("test product 4",4L, new BigDecimal(10.25)));
+        products.add(getTestProduct("test product 1",1L, 10.25));
+        products.add(getTestProduct("test product 2",2L, 10.25));
+        products.add(getTestProduct("test product 3",3L, 10.25));
+        products.add(getTestProduct("test product 4",4L, 10.25));
         return products;
 
     }
 
-    private  Product getTestProduct(String name, Long id, BigDecimal price) {
+    private  Product getTestProduct(String name, Long id, double price) {
         return Product.builder()
                 .product_name(name)
                 .product_price(price)

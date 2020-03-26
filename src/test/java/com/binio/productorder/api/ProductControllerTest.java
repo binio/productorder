@@ -50,7 +50,7 @@ class ProductControllerTest {
     private ProductApi getTestProduct() {
         return ProductApi.builder()
                 .product_name("Product A")
-                .product_price(new BigDecimal(22.00))
+                .product_price(22.00)
                 .product_created_date(ZonedDateTime.now())
                 .product_id(1L)
                 .product_sku("111222333")
@@ -72,7 +72,7 @@ class ProductControllerTest {
                 .get("/product/id/1")).andDo(print())
                 .andExpect(MockMvcResultMatchers.status().is(200))
                 .andExpect(jsonPath("$.product_name").value("Product A"))
-                .andExpect(jsonPath("$.product_price").value(new BigDecimal(22.00).toString()))
+                .andExpect(jsonPath("$.product_price").value(22.00))
                 .andExpect(jsonPath("$.product_id").value("1"))
                 .andExpect(jsonPath("$.product_sku").value("111222333"))
                 .andReturn();
@@ -86,7 +86,7 @@ class ProductControllerTest {
                 .get("/product/sku/111222333/deleted/0")).andDo(print())
                 .andExpect(MockMvcResultMatchers.status().is(200))
                 .andExpect(jsonPath("$.product_name").value("Product A"))
-                .andExpect(jsonPath("$.product_price").value(new BigDecimal(22.00).toString()))
+                .andExpect(jsonPath("$.product_price").value(22.00))
                 .andExpect(jsonPath("$.product_id").value("1"))
                 .andExpect(jsonPath("$.product_sku").value("111222333"))
                 .andReturn();

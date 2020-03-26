@@ -19,5 +19,5 @@ public class OrderApi {
     Long order_id;
     String order_email;
     List<String> products;
-    BigDecimal order_total;
+    double order_total;
 }

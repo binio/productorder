@@ -47,7 +47,7 @@ class ProductServiceImplTest {
     private Product getTestProduct(final String s, final double v, final String s2, final long l) {
         return Product.builder()
                 .productSku(s)
-                .product_price(new BigDecimal(v))
+                .product_price(v)
                 .product_name(s2)
                 .product_id(l)
                 .productDeleted(false)
@@ -61,7 +61,7 @@ class ProductServiceImplTest {
         ProductApi productApi = productService.getProductById(1L).get();
         assertEquals("Product A", productApi.getProduct_name());
         assertEquals("111111", productApi.getProduct_sku());
-        assertEquals(new BigDecimal(10.99), productApi.getProduct_price());
+        assertEquals(10.99, productApi.getProduct_price());
     }
 
     @Test
@@ -70,7 +70,7 @@ class ProductServiceImplTest {
         ProductApi productApi = productService.getProductBySku("111111").get();
         assertEquals("Product A", productApi.getProduct_name());
         assertEquals("111111", productApi.getProduct_sku());
-        assertEquals(new BigDecimal(10.99), productApi.getProduct_price());
+        assertEquals(10.99, productApi.getProduct_price());
     }
 
     @Test
@@ -79,7 +79,7 @@ class ProductServiceImplTest {
         ProductApi productApi = productService.getProductBySkuAndProductDeleted("111111", false).get();
         assertEquals("Product A", productApi.getProduct_name());
         assertEquals("111111", productApi.getProduct_sku());
-        assertEquals(new BigDecimal(10.99), productApi.getProduct_price());
+        assertEquals(10.99, productApi.getProduct_price());
     }
 
     @Test
@@ -89,14 +89,14 @@ class ProductServiceImplTest {
         ProductApi productApi = productService.updateProduct(getUpdatedProductApi()).get();
         assertEquals("Product A Updated", productApi.getProduct_name());
         assertEquals("111111", productApi.getProduct_sku());
-        assertEquals(new BigDecimal(20.00), productApi.getProduct_price());
+        assertEquals(20.00, productApi.getProduct_price());
     }
 
     private ProductApi getUpdatedProductApi() {
         return ProductApi.builder()
        .product_name("Product A Updated")
        .product_id(1L)
-       .product_price(new BigDecimal(20.00))
+       .product_price(20.00)
        .product_sku("111111").build();
     }
 
@@ -111,7 +111,7 @@ class ProductServiceImplTest {
         ProductApi productApi = productService.createProduct(getUpdatedProductApi()).get();
         assertEquals("Product A Updated", productApi.getProduct_name());
         assertEquals("111111", productApi.getProduct_sku());
-        assertEquals(new BigDecimal(20.00), productApi.getProduct_price());
+        assertEquals(20.00, productApi.getProduct_price());
 
     }
 

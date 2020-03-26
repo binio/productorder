@@ -34,7 +34,7 @@ public class Product {
     private String productSku;
 
     @Column(name = "product_price")
-    private BigDecimal product_price;
+    private double product_price;
 
     @Column(name = "product_name")
     private String product_name;
