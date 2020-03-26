@@ -9,6 +9,7 @@ import com.binio.productorder.service.ProductService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -24,9 +25,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Api(value = "Product Store Api")
 @Controller
 @RequestMapping(path="/product")
+@AllArgsConstructor
 public class ProductController {
 
-    @Autowired
     private ProductService productService;
 
     @ApiOperation(value = "View a list of ProductApi which represent database entities Product", response = ProductApi.class)

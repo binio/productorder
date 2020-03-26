@@ -9,6 +9,7 @@ import com.binio.productorder.service.OrderApiException;
 import com.binio.productorder.service.OrderService;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -24,9 +25,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 @RequestMapping(path="/order")
+@AllArgsConstructor
 public class OrderController {
 
-    @Autowired
     OrderService orderService;
 
     @ApiOperation(value = "Creates Order in the database", response = OrderApi.class)

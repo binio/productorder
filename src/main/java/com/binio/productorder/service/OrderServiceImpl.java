@@ -20,10 +20,9 @@ import org.springframework.stereotype.Service;
 @AllArgsConstructor
 public class OrderServiceImpl implements OrderService{
 
-    @Autowired
+
     OrderRepository orderRepository;
 
-    @Autowired
     ProductRepository productRepository;
 
     @Override

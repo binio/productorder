@@ -18,7 +18,6 @@ import org.springframework.stereotype.Service;
 @AllArgsConstructor
 public class ProductServiceImpl implements ProductService{
 
-    @Autowired
     ProductRepository productRepository;
 
     public List<ProductApi> getAllProducts() {
