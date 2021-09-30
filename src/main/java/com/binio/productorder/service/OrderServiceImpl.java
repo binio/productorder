@@ -24,6 +24,8 @@ public class OrderServiceImpl implements OrderService{
     OrderRepository orderRepository;
 
     ProductRepository productRepository;
+    
+    public void hello(){}
 
     @Override
     public Optional<OrderApi> addProduct(final Long productId, final Long orderId) {
