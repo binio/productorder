@@ -27,7 +27,6 @@ env:
   OCTOPUS_HOST: ${{ secrets.OCTOPUSSERVERURL }}
 
 jobs:
-  get-release-information:
    runs-on: ubuntu-latest
    outputs:
       VERSION: 1.02
