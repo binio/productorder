@@ -30,7 +30,7 @@ jobs:
   get-release-information:
    runs-on: ubuntu-latest
    outputs:
-      VERSION: ${{ steps.step1.outputs.OctopusVersionNumber }}
+      VERSION: 1.02
   build:
     runs-on: ubuntu-latest
 
