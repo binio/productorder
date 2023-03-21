@@ -52,5 +52,4 @@ jobs:
     - name: Push Build Information to Octopus Deploy
       uses: OctopusDeploy/push-build-information-action@v3.0.1
 
-      with:
-        version: ${{ needs.get-release-information.outputs.VERSION }}
+
