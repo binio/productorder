@@ -48,3 +48,7 @@ jobs:
       
     - name: Push build information to Octopus Deploy 🐙
       uses: OctopusDeploy/push-build-information-action@v3
+      with:
+       packages:
+        'pack1'
+       version: 1.0
